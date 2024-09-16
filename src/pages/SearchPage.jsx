@@ -28,7 +28,7 @@ const SearchPage = () => {
 
   return (
     <div id="search-page">
-      <h1>Pokemon Card Tech Search</h1>
+      <h1>Pokémon Card Tech Search</h1>
       <SearchControls
         setCardQuery={setCardQuery}
         cardQuery={cardQuery}
