@@ -1,8 +1,3 @@
-# React + Vite
+# Pokémon Card Search Engine
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+An ongoing front-end project that allows users to search Pokemon cards based on the card's stats such as attack costs and typing so that players can find cards to put into their decks.
