@@ -15,15 +15,29 @@ const SearchPage = () => {
   const [cardQuery, setCardQuery] = useState("name:sudowoodo");
   // displayRange used for setting which results show
   const [displayRange, setDisplayRange] = useState([0, 15]);
+  // displayMessage user for setting display message
+  const [loadingSearch, setLoadingSearch] = useState(true);
+
+  async function loadCards() {
+    try {
+      setLoadingSearch(true)
+      const response = await pokemon.card.where({
+        orderBy: "-set.releaseDate",
+        q: cardQuery,
+      });
+      setCards(response.data);
+      console.log(response.data);
+      if (response) {
+        setLoadingSearch(false)
+      }
+      
+    } catch (error) {
+      console.error("Error fetching cards:", error);
+    }
+  }
 
   useEffect(() => {
-    pokemon.card
-      .where({ orderBy: "-set.releaseDate", q: cardQuery })
-      .then((response) => {
-        setCards(response.data);
-        return response.data;
-      })
-      .then((data) => console.log(data));
+    loadCards();
   }, [cardQuery]);
 
   return (
@@ -33,13 +47,14 @@ const SearchPage = () => {
         setCardQuery={setCardQuery}
         cardQuery={cardQuery}
         setDisplayRange={setDisplayRange}
-        setCards={setCards}
+        setCards={setCards}        
       />
       {cards ? (
         <CardDisplay
           cards={cards}
           displayRange={displayRange}
           setDisplayRange={setDisplayRange}
+          loadingSearch={loadingSearch}
         />
       ) : null}
     </div>

@@ -1,6 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 
-const CardDisplay = ({ cards, displayRange, setDisplayRange }) => {
+const CardDisplay = ({
+  cards,
+  displayRange,
+  setDisplayRange,
+  loadingSearch,
+}) => {
   const [displayCards, setDisplayCards] = useState(cards);
 
   const displayFwd = () => {
@@ -17,7 +22,7 @@ const CardDisplay = ({ cards, displayRange, setDisplayRange }) => {
     setDisplayRange([0, 15]);
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     let cardsToDisplay = cards.slice(displayRange[0], displayRange[1]);
     setDisplayCards(cardsToDisplay);
   }, [cards, displayRange]);
@@ -25,12 +30,15 @@ const CardDisplay = ({ cards, displayRange, setDisplayRange }) => {
   return (
     <div>
       <div>
-        {cards.length > 0 ? (
+        {loadingSearch ? <h2>Loading results, please wait.</h2> : null}
+        {cards.length == 0 && !loadingSearch ? (
+          <h2>
+            No results found. Please alter your search criteria and try again
+          </h2>
+        ) : (
           displayCards.map((card) => (
             <img key={card.id} src={card.images.large} width="250px" />
           ))
-        ) : (
-          <h2> Request Loading Please Wait...</h2>
         )}
       </div>
       <div>
